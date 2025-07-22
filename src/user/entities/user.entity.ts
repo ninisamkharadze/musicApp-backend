@@ -8,6 +8,6 @@ export class User {
     @Column({ type: 'varchar' })
     email: string;
 
-    @Column({ type: 'int' })
-    password: number;
+    @Column({ type: 'varchar' })
+    password: string;
 }
