@@ -15,9 +15,6 @@ export class Artist {
     @Column({ type: 'int' })
     age: number;
 
-    @Column({ type: 'varchar' })
-    nationality: string;
-
     @OneToMany(() => Music, (music) => music.artist)
     musics: Music[];
 }

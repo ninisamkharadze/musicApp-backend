@@ -12,8 +12,4 @@ export class CreateArtistDto {
     @IsNumber()
     @IsInt()
     age: number;
-
-    @IsNotEmpty()
-    @IsString()
-    nationality: string;
 }
