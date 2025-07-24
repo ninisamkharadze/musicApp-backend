@@ -1,3 +1,4 @@
+import { Artist } from "src/artist/entities/artist.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -19,4 +20,7 @@ export class Music {
 
     @DeleteDateColumn()
     deletedAt: Date;
+
+    @ManyToOne(() => Artist, (artist) => artist.musics)
+    artist: Artist;
 }

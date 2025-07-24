@@ -5,7 +5,7 @@ import { UpdateArtistDto } from './dto/update-artist.dto';
 @Injectable()
 export class ArtistService {
   create(createArtistDto: CreateArtistDto) {
-    return 'This action adds a new artist';
+    return 'This action adds a new artis';
   }
 
   findAll() {
