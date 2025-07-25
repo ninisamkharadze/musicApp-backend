@@ -1,11 +1,9 @@
+import { BaseEntity } from "src/common/base.entity";
 import { Music } from "src/music/entities/music.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity()
-export class Artist {
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class Artist extends BaseEntity {
     @Column({ type: 'varchar' }) 
     firstName: string;
 
@@ -14,15 +12,6 @@ export class Artist {
 
     @Column({ type: 'int' })
     age: number;
-
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    updatedAt: Date;
-
-    @DeleteDateColumn()
-    deletedAt: Date;
 
     @OneToMany(() => Music, (music) => music.artist)
     musics: Music[];
