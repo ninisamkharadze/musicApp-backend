@@ -4,4 +4,6 @@ export class CreateAlbumDto {
     @IsNotEmpty()
     @IsString()
     name: string;
+
+    
 }
