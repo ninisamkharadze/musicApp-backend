@@ -25,12 +25,12 @@ export class UserRepository {
         return this.userRepo.findOneBy({ id });
     }
 
-    update(id: number, data: UpdateUserDto) {
-        const updateUser = this.findOne(id);
+    async update(id: number, data: UpdateUserDto) {
+        const updateUser = await this.findOne(id);
         if (!updateUser) throw new NotFoundException('user not found');
         Object.assign(updateUser, data);
 
-        return updateUser;
+        return this.userRepo.save(updateUser);
     }
 
     delete(id: number) {

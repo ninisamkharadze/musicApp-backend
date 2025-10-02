@@ -26,12 +26,12 @@ export class musicRepository {
         return this.musicRepo.findOneBy({ id });
     }
 
-    update(id: number, data: UpdateMusicDto) {
-        const updateMusic = this.findOne(id);
+    async update(id: number, data: UpdateMusicDto) {
+        const updateMusic = await this.findOne(id);
         if(!updateMusic) throw new NotFoundException('music not found');
 
         Object.assign(updateMusic, data);
-        return updateMusic;
+        return this.musicRepo.save(updateMusic);
     }
 
     delete(id: number) {
