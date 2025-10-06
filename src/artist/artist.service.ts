@@ -9,8 +9,8 @@ export class ArtistService {
     private readonly artistRepository: ArtistRepository
   ) {}
 
-  create(createArtistDto: CreateArtistDto) {
-    return this.artistRepository.create(createArtistDto);
+  create(createArtistDto: CreateArtistDto, file: Express.Multer.File) {
+    return this.artistRepository.create(createArtistDto, file);
   }
 
   findAll() {

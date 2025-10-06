@@ -13,6 +13,9 @@ export class Artist extends BaseEntity {
     @Column({ type: 'int' })
     age: number;
 
+    @Column({ type: 'varchar' })
+    url: string;
+
     @OneToMany(() => Album, album => album.artist)
     albums: Album[];
 }

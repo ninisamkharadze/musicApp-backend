@@ -4,17 +4,28 @@ import { Artist } from "../entities/artist.entity";
 import { Repository } from "typeorm";
 import { CreateArtistDto } from "../dto/create-artist.dto";
 import { UpdateArtistDto } from "../dto/update-artist.dto";
+import { S3Service } from "src/s3/s3.service";
 
 @Injectable()
 export class ArtistRepository {
     constructor(
         @InjectRepository(Artist)
-        private readonly artistRepo: Repository<Artist>
+        private readonly artistRepo: Repository<Artist>,
+        private readonly s3Service: S3Service,
     ) {}
 
-    create(data: CreateArtistDto) {
+    async create(data: CreateArtistDto, file: Express.Multer.File) {
         const newArtist = this.artistRepo.create(data);
-        return this.artistRepo.save(newArtist);
+        const uploadedFile = await this.s3Service.upload({
+            file: file.buffer,
+            name: file.originalname,
+            mimeType: file.mimetype,
+        })
+        console.log(uploadedFile)
+        return this.artistRepo.save({
+            ...newArtist,
+            url: uploadedFile.Location,
+        });
     }
 
     findAll() {
