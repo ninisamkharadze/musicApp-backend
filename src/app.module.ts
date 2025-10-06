@@ -27,7 +27,7 @@ import { AlbumModule } from './album/album.module';
     UserModule,
     MusicModule,
     ArtistModule,
-    S3Module],
+    S3Module,
     AlbumModule],
   controllers: [AppController],
   providers: [AppService],

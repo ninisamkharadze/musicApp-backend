@@ -1,15 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('artist')
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
 
   @Post()
-  create(@Body() createArtistDto: CreateArtistDto) {
-    return this.artistService.create(createArtistDto);
+  @UseInterceptors(FileInterceptor('file'))
+  create(@Body() createArtistDto: CreateArtistDto, @UploadedFile() file: Express.Multer.File) {
+    console.log(file)
+    return this.artistService.create(createArtistDto, file);
   }
 
   @Get()

@@ -4,9 +4,10 @@ import { ArtistController } from './artist.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Artist } from './entities/artist.entity';
 import { ArtistRepository } from './repositories/artist.repository';
+import { S3Module } from 'src/s3/s3.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Artist])],
+  imports: [TypeOrmModule.forFeature([Artist]), S3Module],
   controllers: [ArtistController],
   providers: [ArtistService, ArtistRepository],
 })
