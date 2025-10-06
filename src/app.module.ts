@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { MusicModule } from './music/music.module';
 import { ArtistModule } from './artist/artist.module';
+import { S3Module } from './s3/s3.module';
 import { AlbumModule } from './album/album.module';
 
 @Module({
@@ -26,6 +27,7 @@ import { AlbumModule } from './album/album.module';
     UserModule,
     MusicModule,
     ArtistModule,
+    S3Module],
     AlbumModule],
   controllers: [AppController],
   providers: [AppService],
