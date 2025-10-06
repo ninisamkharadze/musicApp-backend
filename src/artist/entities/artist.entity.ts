@@ -1,5 +1,5 @@
+import { Album } from "src/album/entities/album.entity";
 import { BaseEntity } from "src/common/base.entity";
-import { Music } from "src/music/entities/music.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity()
@@ -13,6 +13,6 @@ export class Artist extends BaseEntity {
     @Column({ type: 'int' })
     age: number;
 
-    @OneToMany(() => Music, (music) => music.artist)
-    musics: Music[];
+    @OneToMany(() => Album, album => album.artist)
+    albums: Album[];
 }

@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { MusicModule } from './music/music.module';
 import { ArtistModule } from './artist/artist.module';
 import { S3Module } from './s3/s3.module';
+import { AlbumModule } from './album/album.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { S3Module } from './s3/s3.module';
     MusicModule,
     ArtistModule,
     S3Module],
+    AlbumModule],
   controllers: [AppController],
   providers: [AppService],
 })
