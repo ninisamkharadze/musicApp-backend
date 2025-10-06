@@ -1,6 +1,7 @@
+import { Album } from "src/album/entities/album.entity";
 import { Artist } from "src/artist/entities/artist.entity";
 import { BaseEntity } from "src/common/base.entity";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne } from "typeorm";
 
 @Entity()
 export class Music extends BaseEntity {
@@ -10,6 +11,6 @@ export class Music extends BaseEntity {
     @Column({ type: 'varchar' })
     image: string;
 
-    @ManyToOne(() => Artist, (artist) => artist.musics)
-    artist: Artist;
+    @ManyToMany(() => Album, (album) => album.musics)
+    albums: Album[];
 }

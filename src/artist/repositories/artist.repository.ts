@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Artist } from "../entities/artist.entity";
-import { privateDecrypt } from "crypto";
 import { Repository } from "typeorm";
 import { CreateArtistDto } from "../dto/create-artist.dto";
 import { UpdateArtistDto } from "../dto/update-artist.dto";
@@ -26,12 +25,12 @@ export class ArtistRepository {
         return this.artistRepo.findOneBy({ id });
     }
 
-    update(id: number, data: UpdateArtistDto) {
-        const updateArtist = this.findOne(id);
+    async update(id: number, data: UpdateArtistDto) {
+        const updateArtist = await this.findOne(id);
         if(!updateArtist) throw new NotFoundException('artist not found');
         Object.assign(updateArtist, data);
 
-        return updateArtist;
+        return this.artistRepo.save(updateArtist);
     }
 
     delete(id: number) {
