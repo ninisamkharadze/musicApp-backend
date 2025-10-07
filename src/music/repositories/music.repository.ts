@@ -1,21 +1,32 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException, UploadedFile } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Music } from "../entities/music.entity";
 import { Repository } from "typeorm";
 import { CreateMusicDto } from "../dto/create-music.dto";
 import { UpdateMusicDto } from "../dto/update-music.dto";
-import { NotFoundError } from "rxjs";
+import { S3Service } from "src/s3/s3.service";
 
 @Injectable()
 export class musicRepository {
     constructor(
         @InjectRepository(Music)
-        private readonly musicRepo: Repository<Music>
+        private readonly musicRepo: Repository<Music>,
+        private readonly s3Service: S3Service
     ) {}
 
-    create(data: CreateMusicDto) {
+    async create(data: CreateMusicDto, file: Express.Multer.File) {
         const newMusic = this.musicRepo.create(data);
-        return this.musicRepo.save(newMusic);
+        const uploadedFile = await this.s3Service.upload({
+            file: file.buffer,
+            name: file.originalname,
+            mimeType: file.mimetype,
+        })
+        if(!uploadedFile) throw new NotFoundException('file is missing');
+
+        return this.musicRepo.save({
+            ...newMusic,
+            url: uploadedFile.Location,
+        });
     }
 
     findAll() {
