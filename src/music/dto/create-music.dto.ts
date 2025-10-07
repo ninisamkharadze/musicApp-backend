@@ -4,8 +4,4 @@ export class CreateMusicDto {
     @IsString()
     @IsNotEmpty()
     name: string;
-
-    @IsNotEmpty()
-    @IsUrl()
-    image: string;
 }
